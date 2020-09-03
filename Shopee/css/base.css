@@ -1,0 +1,38 @@
+:root {
+  --primary-color: #fb5533;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  width: 1200px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+.container--fluid {
+  width: 100%;
+}
+
+.btn--primary {
+  border: none;
+  outline: none;
+  background: var(--primary-color);
+  cursor: pointer;
+}
+
+.btn--primary:hover {
+  background: #fb6445;
+}
