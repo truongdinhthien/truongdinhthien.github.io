@@ -29,6 +29,5 @@ form.addEventListener("submit", function (e) {
     errorDiv.className = "alert alert-danger";
     return;
   }
-  alert(window.location.href);
   window.location.href = window.location.href + "success.html";
 });
