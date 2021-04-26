@@ -16,14 +16,18 @@ var ExpressBrute = require('express-brute');
 var store = new ExpressBrute.MemoryStore(); // stores state locally, don't use this in production
 var bruteforce = new ExpressBrute(store, {
   freeRetries: 5,
-  minWait: 5*60*1000, // 5 minutes
-  maxWait: 60*60*1000, // 1 hour,
+  minWait: 5 * 60 * 1000, // 5 minutes
+  maxWait: 60 * 60 * 1000, // 1 hour,
   failCallback: (req, res, next, nextValidRequestDate) => {
-    const nextValid = moment(nextValidRequestDate).format('DD/MM/YYYY hh:mm:ss');
+    const nextValid = moment(nextValidRequestDate).format(
+      'DD/MM/YYYY hh:mm:ss'
+    );
     return res.status(429).render('index', {
-      errorMsg: 'Login quá nhiều lần rồi đành khóa bạn lại. Mở khóa lượt chơi vào lúc ' + nextValid,
+      errorMsg:
+        'Login quá nhiều lần rồi đành khóa bạn lại. Mở khóa lượt chơi vào lúc ' +
+        nextValid,
     });
-  }
+  },
 });
 
 app.use(
@@ -47,7 +51,15 @@ app.get('/', (req, res) => {
     errorMsg: null,
   });
 });
-app.post('/', bruteforce.prevent, login);
+app.post(
+  '/',
+  bruteforce.getMiddleware({
+    key: function (req, res, next) {
+      next(req.body.username);
+    },
+  }),
+  login
+);
 
 app.post('/logout', logout);
 app.get('/success', (req, res) => {
