@@ -18,9 +18,8 @@ exports.login = (req, res) => {
   const result = DEAFAULT_USER.find(
     (value) => value.password === password && value.username === username
   );
-  console.log(req.body)
-  if (!result)
-  {
+  console.log(req.body);
+  if (!result) {
     return res.status(400).render('index', {
       errorMsg: 'Sai tên đăng nhập hoặc password',
     });
@@ -29,7 +28,9 @@ exports.login = (req, res) => {
     username,
     password,
   };
-  return res.redirect('/success');
+  return req.brute.reset(function () {
+    res.redirect('/success');
+  });
 };
 
 exports.logout = (req, res) => {
