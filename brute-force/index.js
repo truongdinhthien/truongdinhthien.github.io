@@ -15,7 +15,7 @@ var ExpressBrute = require('express-brute');
 
 var store = new ExpressBrute.MemoryStore(); // stores state locally, don't use this in production
 var bruteforce = new ExpressBrute(store, {
-  freeRetries: 5,
+  freeRetries: 4,
   minWait: 5 * 60 * 1000, // 5 minutes
   maxWait: 60 * 60 * 1000, // 1 hour,
   failCallback: (req, res, next, nextValidRequestDate) => {
